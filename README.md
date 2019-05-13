@@ -42,7 +42,7 @@ const customCursor = new Cursor({
 
 ### Id
 
-This will be used for the cursors `class` so if you set the id in the options then remember to use that as the class name in the CSS.
+This will be used for the cursors `class` so if you set the `id` in the options then remember to use that as the class name in the CSS.
 
 It will also be used as the cursors `id` so make sure it's unique!
 
@@ -61,6 +61,8 @@ On these elements (in the html) you will need to add an attribute of `data-class
 ```html
 <div id="js-cursor" class="js-cursor--insert-name"></div>
 ```
+
+The class will always look like the above, with the default `js-cursor` or your custom class declared in the `id` option followed by `--class-name` with "class-name" being the name declared in the elements `data-class` attribute.
 
 #### Why Unique Attributes?
 

@@ -1,6 +1,6 @@
 {
   "name": "custom-cursor",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Easily create a custom cursor for your site and only worry about the styling",
   "main": "index.js",
   "scripts": {

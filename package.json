@@ -1,0 +1,27 @@
+{
+  "name": "custom-cursor",
+  "version": "1.0.0",
+  "description": "Easily create a custom cursor for your site and only worry about the styling",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "./node_modules/.bin/babel src --out-file index.js"
+  },
+  "author": "MARK MEAD",
+  "license": "ISC",
+  "keywords": [
+    "custom cursor",
+    "cursor",
+    "javascript cursor",
+    "css cursor"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/markmead/custom-cursor.git"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.4",
+    "@babel/preset-env": "^7.4.4"
+  }
+}

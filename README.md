@@ -4,7 +4,7 @@ Easily create custom cursors for your website and only worry about the CSS.
 
 ## Install
 
-`npm install --save create-cursor`
+`npm install custom-cursor`
 
 ## Usage
 

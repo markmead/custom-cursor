@@ -11,6 +11,8 @@ Easily create custom cursors for your website and only worry about the CSS.
 The cursor uses a constructor, so to call it you need to write:
 
 ```js
+import Cursor from "custom-cursor";
+
 const customCursor = new Cursor();
 
 customCursor.init();

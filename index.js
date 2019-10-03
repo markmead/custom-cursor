@@ -17,7 +17,6 @@ function Cursor(attrs) {
   this.id = attrs.id || "js-cursor";
   this.hovers = attrs.hovers || null;
   this.cursor = attrs.cursor || true;
-  this.ele = document.getElementById(this.id);
 }
 
 Cursor.prototype.create = function () {
@@ -85,7 +84,7 @@ Cursor.prototype.status = function () {
 };
 
 Cursor.prototype.moving = function () {
-  var cursor = this.ele;
+  var cursor = document.getElementById(this.id);
   var _event = event,
       pageX = _event.pageX,
       pageY = _event.pageY;
@@ -97,13 +96,13 @@ Cursor.prototype.moving = function () {
 
 Cursor.prototype.hover = function (hover) {
   if (this.hovers === null) return;
-  var cursor = this.ele;
+  var cursor = document.getElementById(this.id);
   var name = hover.getAttribute("data-class");
   cursor.classList.add("".concat(this.id, "--").concat(name));
 };
 
 Cursor.prototype.leave = function (hover) {
-  var cursor = this.ele;
+  var cursor = document.getElementById(this.id);
   var name = hover.getAttribute("data-class");
   cursor.classList.remove("".concat(this.id, "--").concat(name));
 };

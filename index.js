@@ -97,14 +97,14 @@ Cursor.prototype.moving = function () {
 
 Cursor.prototype.hover = function (target, hover) {
   var cursor = document.getElementById(this.id);
-  var name = target.getAttribute("data-class");
-  cursor.classList.add("".concat(this.id, "--").concat(hover));
+  var name = hover.replace(/[.#!]/g, "");
+  cursor.classList.add("".concat(this.id, "--").concat(name));
 };
 
 Cursor.prototype.leave = function (target, hover) {
   var cursor = document.getElementById(this.id);
-  var name = target.getAttribute("data-class");
-  cursor.classList.remove("".concat(this.id, "--").concat(hover));
+  var name = hover.replace(/[.#!]/g, "");
+  cursor.classList.remove("".concat(this.id, "--").concat(name));
 };
 
 Cursor.prototype.init = function () {

@@ -49,16 +49,16 @@ Cursor.prototype.moving = function() {
 
 Cursor.prototype.hover = function(target, hover) {
   const cursor = document.getElementById(this.id);
-  const name = target.getAttribute("data-class");
+  const name = hover.replace(/[.#!]/g, "");
 
-  cursor.classList.add(`${this.id}--${hover}`);
+  cursor.classList.add(`${this.id}--${name}`);
 };
 
 Cursor.prototype.leave = function(target, hover) {
   const cursor = document.getElementById(this.id);
-  const name = target.getAttribute("data-class");
+  const name = hover.replace(/[.#!]/g, "");
 
-  cursor.classList.remove(`${this.id}--${hover}`);
+  cursor.classList.remove(`${this.id}--${name}`);
 };
 
 Cursor.prototype.init = function() {

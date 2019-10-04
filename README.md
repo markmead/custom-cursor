@@ -45,7 +45,7 @@ There's 3 options available and they are all optional:
 ```js
 const customCursor = new Cursor({
   id: "a-custom-name",
-  hovers: ["link-button", "hero-text"],
+  hovers: [".link-button", "#hero-text"],
   cursor: true
 });
 ```
@@ -74,11 +74,11 @@ The name of the element in the array will be given as a class to the cursor. The
 
 ```js
 const customCursor = new Cursor({
-  hovers: ["link-button", "hero-text"]
+  hovers: [".link-button", "#hero-text"]
 });
 ```
 
-Will have append the following classes to the cursor when the `link-button` or `hero-text` is hovered.
+Will have append the following classes to the cursor when the `.link-button` or `#hero-text` is hovered.
 
 ```html
 <div id="js-cursor" class="js-cursor--link-button"></div>
@@ -86,6 +86,8 @@ Will have append the following classes to the cursor when the `link-button` or `
 ```
 
 The class will always look like the above, with the default `js-cursor` or your custom class declared in the `id` option followed by `--class-name` with "class-name" being the name of the element hovered which was declared in the `hovers` array.
+
+Currently it strips out `!`, `.` and `#` from the hover names. If you come across more characters that are in need of being removed then please create an issue or a pull request.
 
 ### Cursor
 
@@ -100,7 +102,7 @@ If you are using React you have to make use of the componentDidMount() and useEf
 ```js
   componentDidMount() {
     const customCursor = new Cursor({
-      hovers: ['link-button', 'hero-text']
+      hovers: [".link-button", "#hero-text"]
     })
     return customCursor.init()
   }
@@ -111,7 +113,7 @@ If you are using React you have to make use of the componentDidMount() and useEf
 ```js
 useEffect(() => {
   const customCursor = new Cursor({
-    hovers: ["link-button", "hero-text"]
+    hovers: [".link-button", "#hero-text"]
   });
   return customCursor.init();
 });

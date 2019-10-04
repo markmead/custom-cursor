@@ -1,19 +1,20 @@
 export default function Cursor(attrs) {
   this.id = attrs.id || "js-cursor";
   this.hovers = attrs.hovers || null;
-  this.cursor = attrs.cursor || true;
+  this.cursor = attrs.cursor === false ? false : true;
 }
 
 Cursor.prototype.create = function() {
   const cursor = document.createElement("div");
   const parent = document.getElementsByTagName("body")[0];
+  const html = document.getElementsByTagName("html")[0];
 
   cursor.setAttribute("id", this.id);
   cursor.setAttribute("class", this.id);
   cursor.style = `position: absolute; pointer-events: none;`;
   parent.append(cursor);
 
-  if (!this.cursor) cursor.style.cursor = "none";
+  if (!this.cursor) html.style.cursor = "none";
 };
 
 Cursor.prototype.status = function() {

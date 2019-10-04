@@ -26,12 +26,12 @@ Cursor.prototype.create = function () {
   cursor.setAttribute("class", this.id);
   cursor.style = "position: absolute; pointer-events: none;";
   parent.append(cursor);
-  if (!this.cursor) parent.style.cursor = "none";
+  if (!this.cursor) cursor.style.cursor = "none";
 };
 
 Cursor.prototype.status = function () {
-  if (this.hovers === null) return;
   document.addEventListener("mousemove", this.moving.bind(this));
+  if (this.hovers === null) return;
   var _iteratorNormalCompletion = true;
   var _didIteratorError = false;
   var _iteratorError = undefined;
@@ -49,8 +49,8 @@ Cursor.prototype.status = function () {
       try {
         for (var _iterator2 = targets[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
           var target = _step2.value;
-          target.addEventListener("mouseover", this.hover.bind(this, target));
-          target.addEventListener("mouseleave", this.leave.bind(this, target));
+          target.addEventListener("mouseover", this.hover.bind(this, target, hover));
+          target.addEventListener("mouseleave", this.leave.bind(this, target, hover));
         }
       } catch (err) {
         _didIteratorError2 = true;
@@ -94,17 +94,16 @@ Cursor.prototype.moving = function () {
   cursor.style.top = posY;
 };
 
-Cursor.prototype.hover = function (hover) {
-  if (this.hovers === null) return;
+Cursor.prototype.hover = function (target, hover) {
   var cursor = document.getElementById(this.id);
-  var name = hover.getAttribute("data-class");
-  cursor.classList.add("".concat(this.id, "--").concat(name));
+  var name = target.getAttribute("data-class");
+  cursor.classList.add("".concat(this.id, "--").concat(hover));
 };
 
-Cursor.prototype.leave = function (hover) {
+Cursor.prototype.leave = function (target, hover) {
   var cursor = document.getElementById(this.id);
-  var name = hover.getAttribute("data-class");
-  cursor.classList.remove("".concat(this.id, "--").concat(name));
+  var name = target.getAttribute("data-class");
+  cursor.classList.remove("".concat(this.id, "--").concat(hover));
 };
 
 Cursor.prototype.init = function () {

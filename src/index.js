@@ -13,19 +13,25 @@ Cursor.prototype.create = function() {
   cursor.style = `position: absolute; pointer-events: none;`;
   parent.append(cursor);
 
-  if (!this.cursor) parent.style.cursor = "none";
+  if (!this.cursor) cursor.style.cursor = "none";
 };
 
 Cursor.prototype.status = function() {
-  if (this.hovers === null) return;
-
   document.addEventListener("mousemove", this.moving.bind(this));
+
+  if (this.hovers === null) return;
 
   for (const hover of this.hovers) {
     const targets = [...document.querySelectorAll(hover)];
     for (const target of targets) {
-      target.addEventListener("mouseover", this.hover.bind(this, target));
-      target.addEventListener("mouseleave", this.leave.bind(this, target));
+      target.addEventListener(
+        "mouseover",
+        this.hover.bind(this, target, hover)
+      );
+      target.addEventListener(
+        "mouseleave",
+        this.leave.bind(this, target, hover)
+      );
     }
   }
 };
@@ -40,19 +46,18 @@ Cursor.prototype.moving = function() {
   cursor.style.top = posY;
 };
 
-Cursor.prototype.hover = function(hover) {
-  if (this.hovers === null) return;
+Cursor.prototype.hover = function(target, hover) {
   const cursor = document.getElementById(this.id);
-  const name = hover.getAttribute("data-class");
+  const name = target.getAttribute("data-class");
 
-  cursor.classList.add(`${this.id}--${name}`);
+  cursor.classList.add(`${this.id}--${hover}`);
 };
 
-Cursor.prototype.leave = function(hover) {
+Cursor.prototype.leave = function(target, hover) {
   const cursor = document.getElementById(this.id);
-  const name = hover.getAttribute("data-class");
+  const name = target.getAttribute("data-class");
 
-  cursor.classList.remove(`${this.id}--${name}`);
+  cursor.classList.remove(`${this.id}--${hover}`);
 };
 
 Cursor.prototype.init = function() {

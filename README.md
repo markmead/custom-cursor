@@ -1,10 +1,18 @@
-# Custom Cursor 🙌
+# Custom Cursor
 
-Easily create custom cursors for your website and only worry about the CSS.
+Easily create custom cursors for your website and only worry about the CSS 🙌
+
+## Major Change in 1.3.0
+
+You no longer need to add the `data-class` attribute to the elements you want a hover effect on.
+
+It now takes the name passed in the `hovers` array.
 
 ## Install
 
 `npm install custom-cursor`
+
+`yarn add custom-cursor`
 
 ## Usage
 
@@ -13,14 +21,14 @@ The cursor uses a constructor, so to call it you need to write:
 ```js
 import Cursor from "custom-cursor";
 
-const customCursor = new Cursor();
+const customCursor = new Cursor({});
 
 customCursor.init();
 ```
 
-This will give you a basic cursor which you can then style using the class `js-cursor`.
+This will give you the default cursor setup.
 
-#### Default Output
+### Default Cursor
 
 ```html
 <div id="js-cursor" class="js-cursor"></div>
@@ -36,7 +44,7 @@ There's 3 options available and they are all optional:
 
 ```js
 const customCursor = new Cursor({
-  id: "my-cursor",
+  id: "a-custom-name",
   hovers: ["link-button", "hero-text"],
   cursor: true
 });
@@ -44,27 +52,40 @@ const customCursor = new Cursor({
 
 ### Id
 
-This will be used for the cursors `class` so if you set the `id` in the options then remember to use that as the class name in the CSS.
+This updates the cursor `id` and `class`.
 
-It will also be used as the cursors `id` so make sure it's unique!
+#### Requirements
+
+- Has to be a string
+- Update the CSS class name to match the `cursor` value
+- Make it unique as it will be used for the cursors `id`
 
 #### With Id Output
 
 ```html
-<div id="my-cursor" class="my-cursor"></div>
+<div id="a-custom-name" class="a-custom-name"></div>
 ```
 
 ### Hovers
 
-This is an array of elements that will have an impact on the cursor when they are on hover.
+This is an array of elements that will apply a hover class to the cursor when an element is hovered.
 
-On these elements (in the html) you will need to add an attribute of `data-class="insert-name"`. The name you give this attribute will be the class added to the cursor on hover of that element.
+The name of the element in the array will be given as a class to the cursor. Therefore:
 
-```html
-<div id="js-cursor" class="js-cursor--insert-name"></div>
+```js
+const customCursor = new Cursor({
+  hovers: ["link-button", "hero-text"]
+});
 ```
 
-The class will always look like the above, with the default `js-cursor` or your custom class declared in the `id` option followed by `--class-name` with "class-name" being the name declared in the elements `data-class` attribute.
+Will have append the following classes to the cursor when the `link-button` or `hero-text` is hovered.
+
+```html
+<div id="js-cursor" class="js-cursor--link-button"></div>
+<div id="js-cursor" class="js-cursor--hero-text"></div>
+```
+
+The class will always look like the above, with the default `js-cursor` or your custom class declared in the `id` option followed by `--class-name` with "class-name" being the name of the element hovered which was declared in the `hovers` array.
 
 ### Cursor
 

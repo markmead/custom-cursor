@@ -16,17 +16,18 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 function Cursor(attrs) {
   this.id = attrs.id || "js-cursor";
   this.hovers = attrs.hovers || null;
-  this.cursor = attrs.cursor || true;
+  this.cursor = attrs.cursor === false ? false : true;
 }
 
 Cursor.prototype.create = function () {
   var cursor = document.createElement("div");
   var parent = document.getElementsByTagName("body")[0];
+  var html = document.getElementsByTagName("html")[0];
   cursor.setAttribute("id", this.id);
   cursor.setAttribute("class", this.id);
   cursor.style = "position: absolute; pointer-events: none;";
   parent.append(cursor);
-  if (!this.cursor) cursor.style.cursor = "none";
+  if (!this.cursor) html.style.cursor = "none";
 };
 
 Cursor.prototype.status = function () {

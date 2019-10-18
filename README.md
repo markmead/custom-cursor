@@ -2,6 +2,11 @@
 
 Easily create custom cursors for your website and only worry about the CSS
 
+![](https://img.shields.io/bundlephobia/min/custom-cursor)
+![](https://img.shields.io/npm/v/custom-cursor)
+![](https://img.shields.io/npm/dt/custom-cursor)
+![](https://img.shields.io/github/license/markmead/custom-cursor)
+
 ## Major Change in 1.3.0
 
 You no longer need to add the `data-class` attribute to the elements you want a hover effect on.

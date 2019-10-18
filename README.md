@@ -1,6 +1,6 @@
 # Custom Cursor
 
-Easily create custom cursors for your website and only worry about the CSS 🙌
+Easily create custom cursors for your website and only worry about the CSS
 
 ## Major Change in 1.3.0
 
@@ -78,10 +78,15 @@ const customCursor = new Cursor({
 });
 ```
 
-Will have append the following classes to the cursor when the `.link-button` or `#hero-text` is hovered.
+The element `.link-button` is on hover it will apply:
 
 ```html
 <div id="js-cursor" class="js-cursor--link-button"></div>
+```
+
+The element `#hero-text` is on hover it will apply:
+
+```html
 <div id="js-cursor" class="js-cursor--hero-text"></div>
 ```
 
@@ -100,12 +105,12 @@ If you are using React you have to make use of the componentDidMount() and useEf
 ### Class Component
 
 ```js
-  componentDidMount() {
-    const customCursor = new Cursor({
-      hovers: [".link-button", "#hero-text"]
-    })
-    return customCursor.init()
-  }
+componentDidMount() {
+  const customCursor = new Cursor({
+    hovers: [".link-button", "#hero-text"]
+  })
+  return customCursor.init()
+}
 ```
 
 ### Function Component

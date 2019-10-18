@@ -1,20 +1,22 @@
 {
   "name": "custom-cursor",
-  "version": "1.3.1",
-  "description": "Easily create a custom cursor for your site.",
+  "version": "1.3.2",
+  "description": "Easily create custom cursors for your website and only worry about the CSS",
   "main": "index.js",
   "scripts": {
-    "build": "./node_modules/.bin/babel src --out-file index.js"
+    "build": "./node_modules/.bin/babel src --out-file index.js --minify"
   },
   "author": "Mark Mead",
-  "license": "ISC",
+  "license": "MIT",
   "keywords": [
     "custom cursor",
-    "cursor",
     "javascript cursor",
     "css cursor",
-    "create custom cursor",
-    "easy custom cursor"
+    "easy custom cursor",
+    "easy cursor",
+    "how to create custom cursor",
+    "cursor",
+    "javascript"
   ],
   "repository": {
     "type": "git",
@@ -23,6 +25,7 @@
   "devDependencies": {
     "@babel/cli": "^7.5.5",
     "@babel/core": "^7.5.5",
-    "@babel/preset-env": "^7.5.5"
+    "@babel/preset-env": "^7.5.5",
+    "babel-preset-minify": "^0.5.1"
   }
 }

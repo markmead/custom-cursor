@@ -1,6 +1,6 @@
 export default function Cursor(data) {
   this.name = "_cursor";
-  this.hoverTargets = data.hoverTargets || null;
+  this.hoverTargets = data.hoverTargets || false;
   this.browserCursor = data.browserCursor || true;
   this.secondCursor = data.secondCursor || false;
 }

@@ -97,6 +97,8 @@ If there are more characters in need of being removed, then please create either
 
 Pass in `false` if you don't want the default browser cursor to appear.
 
+This will handle most but not all cases, such as when you hover over a link. If you want to completely remove the cursor then I'd recommend doing so with CSS.
+
 ## Contributing
 
 This is always welcomed so please do get involved!

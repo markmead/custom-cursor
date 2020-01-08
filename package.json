@@ -1,10 +1,10 @@
 {
   "name": "custom-cursor",
-  "version": "1.3.3",
-  "description": "Easily create custom cursors for your website and only worry about the CSS",
+  "version": "1.3.4",
+  "description": "Create your own custom cursor with minimal JavaScript",
   "main": "index.js",
   "scripts": {
-    "build": "./node_modules/.bin/babel src --out-file index.js --minify"
+    "build": "./node_modules/.bin/babel src --out-file index.js"
   },
   "author": "Mark Mead",
   "license": "MIT",
@@ -14,7 +14,6 @@
     "css cursor",
     "easy custom cursor",
     "easy cursor",
-    "how to create custom cursor",
     "cursor",
     "javascript"
   ],

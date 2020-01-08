@@ -1,6 +1,6 @@
 {
   "name": "custom-cursor",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Create your own custom cursor with minimal JavaScript",
   "main": "index.js",
   "scripts": {

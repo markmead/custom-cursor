@@ -1,17 +1,11 @@
-# Custom Cursor
+# Custom Cursor 👆
 
-Easily create custom cursors for your website and only worry about the CSS
+Create your own custom cursor with minimal JavaScript
 
 ![](https://img.shields.io/bundlephobia/min/custom-cursor)
 ![](https://img.shields.io/npm/v/custom-cursor)
 ![](https://img.shields.io/npm/dt/custom-cursor)
 ![](https://img.shields.io/github/license/markmead/custom-cursor)
-
-## Major Change in 1.3.0
-
-You no longer need to add the `data-class` attribute to the elements you want a hover effect on.
-
-It now takes the name passed in the `hovers` array.
 
 ## Install
 
@@ -21,110 +15,88 @@ It now takes the name passed in the `hovers` array.
 
 ## Usage
 
-The cursor uses a constructor, so to call it you need to write:
+To get the cursor working, add this to your javascript file
 
 ```js
 import Cursor from "custom-cursor";
 
-const customCursor = new Cursor({});
-
-customCursor.init();
+new Cursor({}).mount();
 ```
-
-This will give you the default cursor setup.
 
 ### Default Cursor
 
 ```html
-<div id="js-cursor" class="js-cursor"></div>
+<div id="_cursor" class="_cursor" style="position: absolute; pointer-events: none;"></div>
 ```
 
 ## Options
 
 There's 3 options available and they are all optional:
 
-- id
-- hovers
-- cursor
+- secondCursor
+- hoverTargets
+- browserCursor
 
 ```js
 const customCursor = new Cursor({
-  id: "a-custom-name",
-  hovers: [".link-button", "#hero-text"],
-  cursor: true
+  secondCursor: true, // default = false
+  hoverTargets: [".link-button", "#hero-text", "p"], // default = null
+  browserCursor: false // default = true
 });
 ```
 
-### Id
+### secondCursor
 
-This updates the cursor `id` and `class`.
-
-#### Requirements
-
-- Has to be a string
-- Update the CSS class name to match the `cursor` value
-- Make it unique as it will be used for the cursors `id`
-
-#### With Id Output
+This adds a second cursor element to the page with the following markup:
 
 ```html
-<div id="a-custom-name" class="a-custom-name"></div>
+<div id="_cursor-second" class="_cursor-second" style="position: absolute; pointer-events: none;"></div>
 ```
 
-### Hovers
+### hoverTargets
 
-This is an array of elements that will apply a hover class to the cursor when an element is hovered.
+Pass an array of elements that you want to apply a custom hover effect to the cursor when these elements are on hover.
 
-The name of the element in the array will be given as a class to the cursor. Therefore:
+The name of the element in the array will be given as a class name to the body element of the page. Therefore:
 
 ```js
-const customCursor = new Cursor({
-  hovers: [".link-button", "#hero-text"]
+new Cursor({
+  hoverTargets: [".link-button", "#hero-text", "p"]
 });
 ```
 
-The element `.link-button` is on hover it will apply:
+Will result in:
 
 ```html
-<div id="js-cursor" class="js-cursor--link-button"></div>
+<body class="_cursor-hover--link-button"></body>
+<body class="_cursor-hover--hero-text"></body>
+<body class="_cursor-hover--p"></body>
 ```
 
-The element `#hero-text` is on hover it will apply:
+The class is applied to the body so that in CSS you can easily add different styles per hover, like so:
 
-```html
-<div id="js-cursor" class="js-cursor--hero-text"></div>
-```
+```css
+._cursor-hover--link-button ._cursor {
+  background: red;
+}
 
-The class will always look like the above, with the default `js-cursor` or your custom class declared in the `id` option followed by `--class-name` with "class-name" being the name of the element hovered which was declared in the `hovers` array.
+._cursor-hover--hero-text ._cursor-second {
+  background: green;
+}
 
-Currently it strips out `!`, `.` and `#` from the hover names. If you come across more characters that are in need of being removed then please create an issue or a pull request.
-
-### Cursor
-
-Pass in `false` if you don't want the default browser cursor to appear.
-
-## React Usage
-
-If you are using React you have to make use of the componentDidMount() and useEffect() functions.
-
-### Class Component
-
-```js
-componentDidMount() {
-  const customCursor = new Cursor({
-    hovers: [".link-button", "#hero-text"]
-  })
-  return customCursor.init()
+._cursor-hover--hero-text ._cursor {
+  background: green;
 }
 ```
 
-### Function Component
+Currently it strips out `!`, `.` and `#` from the hover names.
 
-```js
-useEffect(() => {
-  const customCursor = new Cursor({
-    hovers: [".link-button", "#hero-text"]
-  });
-  return customCursor.init();
-});
-```
+If there are more characters in need of being removed, then please create either an issue or a pull request.
+
+### browserCursor
+
+Pass in `false` if you don't want the default browser cursor to appear.
+
+## Contributing
+
+This is always welcomed so please do get involved!

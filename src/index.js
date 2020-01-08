@@ -1,67 +1,86 @@
-export default function Cursor(attrs) {
-  this.id = attrs.id || "js-cursor";
-  this.hovers = attrs.hovers || null;
-  this.cursor = attrs.cursor === false ? false : true;
+export default function Cursor(data) {
+  this.name = "_cursor";
+  this.hoverTargets = data.hoverTargets || null;
+  this.browserCursor = data.browserCursor;
+  this.secondCursor = data.secondCursor || false;
 }
 
-Cursor.prototype.create = function() {
-  const cursor = document.createElement("div");
-  const parent = document.getElementsByTagName("body")[0];
-  const html = document.getElementsByTagName("html")[0];
+Cursor.prototype.buildCursor = function() {
+  const HTML = document.getElementsByTagName("html")[0];
+  const BODY = document.getElementsByTagName("body")[0];
+  const CURSOR = document.createElement("div");
+  const STYLE = "position: absolute; pointer-events: none;";
 
-  cursor.setAttribute("id", this.id);
-  cursor.setAttribute("class", this.id);
-  cursor.style = `position: absolute; pointer-events: none;`;
-  parent.append(cursor);
+  CURSOR.setAttribute("id", this.name);
+  CURSOR.setAttribute("class", this.name);
+  CURSOR.style = STYLE;
+  BODY.append(CURSOR);
 
-  if (!this.cursor) html.style.cursor = "none";
+  if (this.secondCursor) {
+    const SECOND_CURSOR = document.createElement("div");
+    SECOND_CURSOR.setAttribute("id", `${this.name}-second`);
+    SECOND_CURSOR.setAttribute("class", `${this.name}-second`);
+    SECOND_CURSOR.style = STYLE;
+    BODY.append(SECOND_CURSOR);
+  }
+
+  if (!this.browserCursor) {
+    HTML.style.cursor = "none";
+  }
 };
 
-Cursor.prototype.status = function() {
-  document.addEventListener("mousemove", this.moving.bind(this));
+Cursor.prototype.moveCursor = function() {
+  const CURSOR = document.querySelector("#_cursor");
+  let SECOND_CURSOR;
 
-  if (this.hovers === null) return;
+  if (this.secondCursor) {
+    SECOND_CURSOR = document.querySelector("#_cursor-second");
+  }
 
-  for (const hover of this.hovers) {
-    const targets = [...document.querySelectorAll(hover)];
-    for (const target of targets) {
-      target.addEventListener(
+  document.addEventListener("mousemove", function(event) {
+    const { pageX, pageY } = event;
+    CURSOR.style.left = `${pageX - CURSOR.offsetWidth / 2}px`;
+    SECOND_CURSOR.style.left = `${pageX - SECOND_CURSOR.offsetWidth / 2}px`;
+    CURSOR.style.top = `${pageY - CURSOR.offsetHeight / 2}px`;
+    SECOND_CURSOR.style.top = `${pageY - SECOND_CURSOR.offsetHeight / 2}px`;
+  });
+};
+
+Cursor.prototype.cursorStatus = function() {
+  if (!this.hoverTargets) {
+    return;
+  }
+
+  for (const hoverTarget of this.hoverTargets) {
+    const hoverTargetsArray = [...document.querySelectorAll(hoverTarget)];
+
+    for (const _hoverTarget of hoverTargetsArray) {
+      _hoverTarget.addEventListener(
         "mouseover",
-        this.hover.bind(this, target, hover)
+        this.cursorHover.bind(this, hoverTarget)
       );
-      target.addEventListener(
+      _hoverTarget.addEventListener(
         "mouseleave",
-        this.leave.bind(this, target, hover)
+        this.cursorLeave.bind(this, hoverTarget)
       );
     }
   }
 };
 
-Cursor.prototype.moving = function() {
-  const cursor = document.getElementById(this.id);
-  const { pageX, pageY } = event;
-  const posX = `${pageX - cursor.offsetWidth / 2}px`;
-  const posY = `${pageY - cursor.offsetHeight / 2}px`;
-
-  cursor.style.left = posX;
-  cursor.style.top = posY;
+Cursor.prototype.cursorHover = function(hoverTarget) {
+  const BODY = document.getElementsByTagName("body")[0];
+  const hoverTargetName = hoverTarget.replace(/[.#!]/g, "");
+  BODY.classList.add(`_cursor-hover--${hoverTargetName}`);
 };
 
-Cursor.prototype.hover = function(target, hover) {
-  const cursor = document.getElementById(this.id);
-  const name = hover.replace(/[.#!]/g, "");
-
-  cursor.classList.add(`${this.id}--${name}`);
+Cursor.prototype.cursorLeave = function(hoverTarget) {
+  const BODY = document.getElementsByTagName("body")[0];
+  const hoverTargetName = hoverTarget.replace(/[.#!]/g, "");
+  BODY.classList.remove(`_cursor-hover--${hoverTargetName}`);
 };
 
-Cursor.prototype.leave = function(target, hover) {
-  const cursor = document.getElementById(this.id);
-  const name = hover.replace(/[.#!]/g, "");
-
-  cursor.classList.remove(`${this.id}--${name}`);
-};
-
-Cursor.prototype.init = function() {
-  this.create();
-  this.status();
+Cursor.prototype.mount = function() {
+  this.buildCursor();
+  this.moveCursor();
+  this.cursorStatus();
 };

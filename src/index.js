@@ -11,6 +11,8 @@ Cursor.prototype.buildCursor = function() {
   const CURSOR = document.createElement("div");
   const STYLE = "position: absolute; pointer-events: none;";
 
+  HTML.style.overflow = "hidden";
+
   CURSOR.setAttribute("id", this.name);
   CURSOR.setAttribute("class", this.name);
   CURSOR.style = STYLE;

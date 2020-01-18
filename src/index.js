@@ -38,13 +38,13 @@ Cursor.prototype.moveCursor = function() {
   }
 
   document.addEventListener("mousemove", function(event) {
-    const { pageX, pageY } = event;
-    CURSOR.style.left = `${pageX - CURSOR.offsetWidth / 2}px`;
-    CURSOR.style.top = `${pageY - CURSOR.offsetHeight / 2}px`;
+    const { clientX, clientY } = event;
+    CURSOR.style.left = `${clientX - CURSOR.offsetWidth / 2}px`;
+    CURSOR.style.top = `${clientY - CURSOR.offsetHeight / 2}px`;
 
     if (SECOND_CURSOR) {
-      SECOND_CURSOR.style.left = `${pageX - SECOND_CURSOR.offsetWidth / 2}px`;
-      SECOND_CURSOR.style.top = `${pageY - SECOND_CURSOR.offsetHeight / 2}px`;
+      SECOND_CURSOR.style.left = `${clientX - SECOND_CURSOR.offsetWidth / 2}px`;
+      SECOND_CURSOR.style.top = `${clientY - SECOND_CURSOR.offsetHeight / 2}px`;
     }
   });
 };

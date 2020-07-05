@@ -3,77 +3,67 @@ export default function Cursor(data) {
   this.hoverTargets = data.hoverTargets || false
   this.browserCursor = data.browserCursor === false ? false : true
   this.secondCursor = data.secondCursor || false
+  this.htmlEl = document.getElementsByTagName('html')[0]
+  this.bodyEl = document.getElementsByTagName('body')[0]
 }
 
 Cursor.prototype.buildCursor = function () {
-  const HTML = document.getElementsByTagName('html')[0]
-  const BODY = document.getElementsByTagName('body')[0]
-  const CURSOR = document.createElement('div')
-  const STYLE = 'position: absolute; pointer-events: none;'
+  const mainCursor = document.createElement('div')
+  const defaultStyle = 'position: fixed; pointer-events: none;'
 
-  CURSOR.setAttribute('id', this.name)
-  CURSOR.setAttribute('class', this.name)
-  CURSOR.style = STYLE
-  BODY.append(CURSOR)
+  mainCursor.setAttribute('id', this.name)
+  mainCursor.setAttribute('class', this.name)
+  mainCursor.style = defaultStyle
+  this.bodyEl.append(mainCursor)
 
   if (this.secondCursor) {
-    const SECOND_CURSOR = document.createElement('div')
-    SECOND_CURSOR.setAttribute('id', `${this.name}-second`)
-    SECOND_CURSOR.setAttribute('class', `${this.name}-second`)
-    SECOND_CURSOR.style = STYLE
-    BODY.append(SECOND_CURSOR)
+    const secondCursor = document.createElement('div')
+    secondCursor.setAttribute('id', `${this.name}-second`)
+    secondCursor.setAttribute('class', `${this.name}-second`)
+    secondCursor.style = defaultStyle
+    this.bodyEl.append(secondCursor)
   }
 
-  if (!this.browserCursor) {
-    HTML.style.cursor = 'none'
-  }
+  if (!this.browserCursor) this.htmlEl.style.cursor = 'none'
 }
 
 Cursor.prototype.moveCursor = function () {
-  const CURSOR = document.querySelector(`#${this.name}`)
-  let SECOND_CURSOR
-
-  if (this.secondCursor) {
-    SECOND_CURSOR = document.querySelector(`#${this.name}-second`)
-  }
+  const mainCursor = document.querySelector(`#${this.name}`)
+  let secondCursor = this.secondCursor ? document.querySelector(`#${this.name}-second`) : null
 
   document.addEventListener('mousemove', function (event) {
     const { clientX, clientY } = event
-    CURSOR.style.left = `${clientX - CURSOR.offsetWidth / 2}px`
-    CURSOR.style.top = `${clientY - CURSOR.offsetHeight / 2}px`
+    let mainPosX = clientX - mainCursor.offsetWidth / 2
+    let mainPosY = clientY - mainCursor.offsetHeight / 2
 
-    if (SECOND_CURSOR) {
-      SECOND_CURSOR.style.left = `${clientX - SECOND_CURSOR.offsetWidth / 2}px`
-      SECOND_CURSOR.style.top = `${clientY - SECOND_CURSOR.offsetHeight / 2}px`
+    mainCursor.style.left = `${mainPosX}px`
+    mainCursor.style.top = `${mainPosY}px`
+
+    if (secondCursor) {
+      let secondPosX = clientX - secondCursor.offsetWidth / 2
+      let secondPosY = clientY - secondCursor.offsetHeight / 2
+      secondCursor.style.left = `${secondPosX}px`
+      secondCursor.style.top = `${secondPosY}px`
     }
   })
 }
 
 Cursor.prototype.cursorStatus = function () {
-  if (!this.hoverTargets) {
-    return
-  }
+  if (!this.hoverTargets) return
 
   for (const hoverTarget of this.hoverTargets) {
     const hoverTargetsArray = [...document.querySelectorAll(hoverTarget)]
 
     for (const _hoverTarget of hoverTargetsArray) {
-      _hoverTarget.addEventListener('mouseover', this.cursorHover.bind(this, hoverTarget))
-      _hoverTarget.addEventListener('mouseleave', this.cursorLeave.bind(this, hoverTarget))
+      _hoverTarget.addEventListener('mouseover', this.handleHover.bind(this, hoverTarget))
+      _hoverTarget.addEventListener('mouseleave', this.handleHover.bind(this, hoverTarget))
     }
   }
 }
 
-Cursor.prototype.cursorHover = function (hoverTarget) {
-  const BODY = document.getElementsByTagName('body')[0]
-  const hoverTargetName = hoverTarget.replace(/[.#!]/g, '')
-  BODY.classList.add(`${this.name}-hover--${hoverTargetName}`)
-}
-
-Cursor.prototype.cursorLeave = function (hoverTarget) {
-  const BODY = document.getElementsByTagName('body')[0]
-  const hoverTargetName = hoverTarget.replace(/[.#!]/g, '')
-  BODY.classList.remove(`${this.name}-hover--${hoverTargetName}`)
+Cursor.prototype.handleHover = function (hoverTarget) {
+  const targetName = hoverTarget.replace(/[.#!]/g, '')
+  this.bodyEl.classList.toggle(`${this.name}-hover--${targetName}`)
 }
 
 Cursor.prototype.mount = function () {

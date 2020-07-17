@@ -1,5 +1,6 @@
 export default function Cursor(data) {
-  this.name = 'custom-cursor'
+  this.cursorName = 'custom-cursor'
+  this.secondCursorName = 'custom-cursor-second'
   this.hoverTargets = data.hoverTargets || false
   this.browserCursor = data.browserCursor === false ? false : true
   this.secondCursor = data.secondCursor || false
@@ -11,15 +12,15 @@ Cursor.prototype.buildCursor = function () {
   const mainCursor = document.createElement('div')
   const defaultStyle = 'position: fixed; pointer-events: none;'
 
-  mainCursor.setAttribute('id', this.name)
-  mainCursor.setAttribute('class', this.name)
+  mainCursor.setAttribute('id', this.cursorName)
+  mainCursor.setAttribute('class', this.cursorName)
   mainCursor.style = defaultStyle
   this.bodyEl.append(mainCursor)
 
   if (this.secondCursor) {
     const secondCursor = document.createElement('div')
-    secondCursor.setAttribute('id', `${this.name}-second`)
-    secondCursor.setAttribute('class', `${this.name}-second`)
+    secondCursor.setAttribute('id', this.secondCursorName)
+    secondCursor.setAttribute('class', this.secondCursorName)
     secondCursor.style = defaultStyle
     this.bodyEl.append(secondCursor)
   }
@@ -28,22 +29,18 @@ Cursor.prototype.buildCursor = function () {
 }
 
 Cursor.prototype.moveCursor = function () {
-  const mainCursor = document.querySelector(`#${this.name}`)
-  let secondCursor = this.secondCursor ? document.querySelector(`#${this.name}-second`) : null
+  const mainCursor = document.querySelector(this.cursorName)
+  let secondCursor = this.secondCursor ? document.querySelector(this.secondCursorName) : null
 
   document.addEventListener('mousemove', function (event) {
     const { clientX, clientY } = event
-    let mainPosX = clientX - mainCursor.offsetWidth / 2
-    let mainPosY = clientY - mainCursor.offsetHeight / 2
 
-    mainCursor.style.left = `${mainPosX}px`
-    mainCursor.style.top = `${mainPosY}px`
+    mainCursor.style.left = `${clientX - mainCursor.offsetWidth / 2}px`
+    mainCursor.style.top = `${clientY - mainCursor.offsetHeight / 2}px`
 
     if (secondCursor) {
-      let secondPosX = clientX - secondCursor.offsetWidth / 2
-      let secondPosY = clientY - secondCursor.offsetHeight / 2
-      secondCursor.style.left = `${secondPosX}px`
-      secondCursor.style.top = `${secondPosY}px`
+      secondCursor.style.left = `${clientX - secondCursor.offsetWidth / 2}px`
+      secondCursor.style.top = `${clientY - secondCursor.offsetHeight / 2}px`
     }
   })
 }
@@ -63,7 +60,7 @@ Cursor.prototype.cursorStatus = function () {
 
 Cursor.prototype.handleHover = function (hoverTarget) {
   const targetName = hoverTarget.replace(/[.#!]/g, '')
-  this.bodyEl.classList.toggle(`${this.name}-hover--${targetName}`)
+  this.bodyEl.classList.toggle(`${this.cursorName}-hover--${targetName}`)
 }
 
 Cursor.prototype.mount = function () {

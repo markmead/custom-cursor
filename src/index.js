@@ -29,8 +29,8 @@ Cursor.prototype.buildCursor = function () {
 }
 
 Cursor.prototype.moveCursor = function () {
-  const mainCursor = document.querySelector(this.cursorName)
-  let secondCursor = this.secondCursor ? document.querySelector(this.secondCursorName) : null
+  const mainCursor = document.getElementById(this.cursorName)
+  const secondCursor = this.secondCursor ? document.getElementById(this.secondCursorName) : null
 
   document.addEventListener('mousemove', function (event) {
     const { clientX, clientY } = event
@@ -49,7 +49,7 @@ Cursor.prototype.cursorStatus = function () {
   if (!this.hoverTargets) return
 
   for (const hoverTarget of this.hoverTargets) {
-    const hoverTargetsArray = [...document.querySelectorAll(hoverTarget)]
+    const hoverTargetsArray = document.querySelectorAll(hoverTarget)
 
     for (const _hoverTarget of hoverTargetsArray) {
       _hoverTarget.addEventListener('mouseover', this.handleHover.bind(this, hoverTarget))

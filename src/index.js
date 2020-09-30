@@ -30,7 +30,7 @@ Cursor.prototype.buildCursor = function () {
 
 Cursor.prototype.moveCursor = function () {
   const mainCursor = document.getElementById(this.cursorName)
-  const secondCursor = this.secondCursor ? document.getElementById(this.secondCursorName) : null
+  const secondCursor = document.getElementById(this.secondCursorName)
 
   document.addEventListener('mousemove', function (event) {
     const { clientX, clientY } = event

@@ -1,5 +1,5 @@
 export interface Data {
   browserCursor?: boolean;
-  hoverTargets?: Array<string>|boolean;
+  hoverTargets?: string[]|boolean;
   secondCursor?: boolean;
 }

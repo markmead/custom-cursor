@@ -1,23 +1,19 @@
 {
   "name": "custom-cursor",
-  "version": "1.6.5",
+  "version": "1.7.0",
   "description": "Create your own custom cursor with minimal JavaScript",
   "main": "dist/index.js",
   "scripts": {
     "build": "babel src --out-file dist/index.js --extensions '.ts'",
-    "check-types": "tsc",
-    "lint": "eslint . --ext .ts"
+    "lint": "tsc && eslint . --ext .ts"
   },
   "author": "Mark Mead",
   "license": "MIT",
   "keywords": [
+    "browser cursor",
     "custom cursor",
-    "javascript cursor",
-    "css cursor",
-    "easy custom cursor",
-    "easy cursor",
-    "cursor",
-    "javascript"
+    "customise cursor",
+    "customisable cursor"
   ],
   "repository": {
     "type": "git",

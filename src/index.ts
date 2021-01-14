@@ -11,25 +11,19 @@ export default class CustomCursor {
   bodyElement: HTMLBodyElement = document.getElementsByTagName("body")[0];
   htmlElement: HTMLHtmlElement = document.getElementsByTagName("html")[0];
 
-  constructor(data: Data) {
+  constructor(private data: Data) {
     this.hoverTargets = data.hoverTargets || false;
     this.browserCursor = data.browserCursor || false;
     this.secondCursor = data.secondCursor || false;
   }
 
-  build(): void {
+  private init(): void {
     const mainCursor: HTMLDivElement = document.createElement("div");
-    mainCursor.setAttribute("id", this.name);
-    mainCursor.setAttribute("class", this.name);
-    mainCursor.setAttribute('style', this.defaultStyle)
-    this.bodyElement.append(mainCursor);
+    this.create(mainCursor, this.name)
 
     if (this.secondCursor) {
       const secondCursor: HTMLDivElement = document.createElement("div");
-      secondCursor.setAttribute("id", this.secondName);
-      secondCursor.setAttribute("class", this.secondName);
-      secondCursor.setAttribute('style', this.defaultStyle)
-      this.bodyElement.append(secondCursor);
+      this.create(secondCursor, this.secondName)
     }
 
     if (!this.browserCursor) {
@@ -37,26 +31,37 @@ export default class CustomCursor {
     }
   }
 
-  move(): void {
-    const mainCursor: HTMLElement | null = document.getElementById(this.name);
-    const secondCursor: HTMLElement | null = document.getElementById(this.secondName);
+  private create(cursor: HTMLDivElement, name: string): void {
+    cursor.setAttribute("id", name);
+    cursor.setAttribute("class", name);
+    cursor.setAttribute('style', this.defaultStyle)
 
-    document.addEventListener("mousemove", function (event) {
+    this.bodyElement.append(cursor);
+  }
+
+  private move(): void {
+    const mainCursor: HTMLElement|null = document.getElementById(this.name);
+    const secondCursor: HTMLElement|null = document.getElementById(this.secondName);
+
+    document.addEventListener("mousemove", (event) => {
       const { clientX, clientY } = event;
 
       if (mainCursor) {
-        mainCursor.style.left = `${clientX - mainCursor.offsetWidth / 2}px`;
-        mainCursor.style.top = `${clientY - mainCursor.offsetHeight / 2}px`;
+        this.position(mainCursor, clientX, clientY)
       }
 
       if (secondCursor) {
-        secondCursor.style.left = `${clientX - secondCursor.offsetWidth / 2}px`;
-        secondCursor.style.top = `${clientY - secondCursor.offsetHeight / 2}px`;
+        this.position(secondCursor, clientX, clientY)
       }
     });
   }
 
-  status(): void {
+  private position(cursor: HTMLElement, x: number, y: number): void {
+    cursor.style.left = `${x - cursor.offsetWidth / 2}px`;
+    cursor.style.top = `${y - cursor.offsetHeight / 2}px`;
+  }
+
+  private status(): void {
     if (this.hoverTargets instanceof Array) {
       for (const hoverTarget of this.hoverTargets) {
         const hoverTargetsArray: NodeListOf<Element> = document.querySelectorAll(hoverTarget);
@@ -75,13 +80,13 @@ export default class CustomCursor {
     }
   }
 
-  hover(hoverTarget: string): void {
+  private hover(hoverTarget: string): void {
     const targetName = hoverTarget.replace(/[.#!]/g, "");
     this.bodyElement.classList.toggle(`${this.name}-hover--${targetName}`);
   }
 
   mount(): void {
-    this.build();
+    this.init();
     this.move();
     this.status();
   }

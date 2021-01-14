@@ -12,9 +12,9 @@ export default class CustomCursor {
   htmlElement: HTMLHtmlElement = document.getElementsByTagName("html")[0];
 
   constructor(private data: Data) {
-    this.hoverTargets = data.hoverTargets || false;
-    this.browserCursor = data.browserCursor || false;
-    this.secondCursor = data.secondCursor || false;
+    this.hoverTargets = this.data.hoverTargets || false;
+    this.browserCursor = this.data.browserCursor || false;
+    this.secondCursor = this.data.secondCursor || false;
   }
 
   private init(): void {

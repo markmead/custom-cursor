@@ -1,6 +1,6 @@
 {
   "name": "custom-cursor",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "Create your own custom cursor with minimal JavaScript",
   "main": "dist/index.js",
   "scripts": {
@@ -13,7 +13,9 @@
     "browser cursor",
     "custom cursor",
     "customise cursor",
-    "customisable cursor"
+    "customisable cursor",
+    "javascript cursor",
+    "typescript cursor"
   ],
   "repository": {
     "type": "git",

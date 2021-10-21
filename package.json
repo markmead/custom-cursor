@@ -1,6 +1,6 @@
 {
   "name": "custom-cursor",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "description": "Create your own custom cursor with minimal JavaScript",
   "main": "dist/index.js",
   "scripts": {
@@ -22,7 +22,7 @@
     "url": "https://github.com/markmead/custom-cursor.git"
   },
   "devDependencies": {
-    "@babel/cli": "^7.12.10",
+    "@babel/cli": "^7.12.1",
     "@babel/core": "^7.12.10",
     "@babel/plugin-proposal-class-properties": "^7.12.1",
     "@babel/plugin-proposal-object-rest-spread": "^7.12.1",

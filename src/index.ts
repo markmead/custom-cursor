@@ -1,93 +1,82 @@
-import { Data } from '../src/idata'
+interface Data {
+  count?: number;
+  targets?: string[] | boolean;
+}
 
-export default class CustomCursor {
-  hoverTargets: string[]|boolean;
-  browserCursor: boolean;
-  secondCursor: boolean;
+export default class Cursor {
+  count: number;
+  targets: string[] | boolean;
 
   name = "custom-cursor";
-  secondName = "custom-cursor-second";
-  defaultStyle = 'position: fixed; pointer-events: none;'
-  bodyElement: HTMLBodyElement = document.getElementsByTagName("body")[0];
-  htmlElement: HTMLHtmlElement = document.getElementsByTagName("html")[0];
+  style = "position: fixed; pointer-events: none;";
+  body = document.querySelector("body") as HTMLBodyElement;
 
   constructor(private data: Data) {
-    this.hoverTargets = this.data.hoverTargets || false;
-    this.browserCursor = this.data.browserCursor || false;
-    this.secondCursor = this.data.secondCursor || false;
+    this.count = this.data.count || 1;
+    this.targets = this.data.targets || false;
+
+    this.init();
+    this.move();
+    this.status();
   }
 
   private init(): void {
-    const mainCursor: HTMLDivElement = document.createElement("div");
-    this.create(mainCursor, this.name)
+    const cursors = new Array(this.count).fill(0);
 
-    if (this.secondCursor) {
-      const secondCursor: HTMLDivElement = document.createElement("div");
-      this.create(secondCursor, this.secondName)
-    }
+    cursors.forEach((_, index) => {
+      const cursor: HTMLDivElement = document.createElement("div");
 
-    if (!this.browserCursor) {
-      this.htmlElement.style.cursor = "none";
-    }
+      this.create(cursor, index);
+    });
   }
 
-  private create(cursor: HTMLDivElement, name: string): void {
-    cursor.setAttribute("id", name);
-    cursor.setAttribute("class", name);
-    cursor.setAttribute('style', this.defaultStyle)
+  private create(cursor: HTMLDivElement, index: number): void {
+    cursor.setAttribute("data-cursor", `${index}`);
+    cursor.setAttribute("style", this.style);
 
-    this.bodyElement.append(cursor);
+    this.body.append(cursor);
   }
 
   private move(): void {
-    const mainCursor: HTMLElement|null = document.getElementById(this.name);
-    const secondCursor: HTMLElement|null = document.getElementById(this.secondName);
+    const cursors: NodeListOf<Element> =
+      document.querySelectorAll("[data-cursor]");
 
     document.addEventListener("mousemove", (event) => {
       const { clientX, clientY } = event;
 
-      if (mainCursor) {
-        this.position(mainCursor, clientX, clientY)
-      }
-
-      if (secondCursor) {
-        this.position(secondCursor, clientX, clientY)
-      }
+      cursors.forEach((cursor) =>
+        this.position(cursor as HTMLDivElement, clientX, clientY)
+      );
     });
   }
 
-  private position(cursor: HTMLElement, x: number, y: number): void {
+  private position(cursor: HTMLDivElement, x: number, y: number): void {
     cursor.style.left = `${x - cursor.offsetWidth / 2}px`;
     cursor.style.top = `${y - cursor.offsetHeight / 2}px`;
   }
 
   private status(): void {
-    if (this.hoverTargets instanceof Array) {
-      for (const hoverTarget of this.hoverTargets) {
-        const hoverTargetsArray: NodeListOf<Element> = document.querySelectorAll(hoverTarget);
+    if (this.targets instanceof Array) {
+      for (const target of this.targets) {
+        const targetEls: NodeListOf<Element> =
+          document.querySelectorAll(target);
 
-        for (const _hoverTarget of hoverTargetsArray) {
-          _hoverTarget.addEventListener(
-            "mouseover",
-            this.hover.bind(this, hoverTarget)
-          );
-          _hoverTarget.addEventListener(
-            "mouseleave",
-            this.hover.bind(this, hoverTarget)
-          )
+        for (const el of targetEls) {
+          el.addEventListener("mouseover", this.hover.bind(this, target));
+          el.addEventListener("mouseleave", this.hover.bind(this, target));
         }
       }
     }
   }
 
   private hover(hoverTarget: string): void {
-    const targetName = hoverTarget.replace(/[.#!]/g, "");
-    this.bodyElement.classList.toggle(`${this.name}-hover--${targetName}`);
-  }
+    const name = hoverTarget.replace(/[.#!]/g, "");
 
-  mount(): void {
-    this.init();
-    this.move();
-    this.status();
+    this.body.classList.toggle(`${this.name}-hover--${name}`);
   }
 }
+
+new Cursor({
+  count: 3,
+  targets: ["a", "h1"],
+});

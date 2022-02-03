@@ -1,104 +1,93 @@
 # Custom Cursor 👆
 
-Create your own custom cursor with minimal JavaScript
+Create your own custom cursor that you can control with CSS.
 
 ![](https://img.shields.io/bundlephobia/min/custom-cursor)
 ![](https://img.shields.io/npm/v/custom-cursor)
 ![](https://img.shields.io/npm/dt/custom-cursor)
 ![](https://img.shields.io/github/license/markmead/custom-cursor)
 
-## Install
-
-`npm install custom-cursor`
-
-`yarn add custom-cursor`
-
 ## Usage
 
-To get the cursor working, add this to your javascript file
+### Install
 
-```js
-import Cursor from 'custom-cursor'
-
-new Cursor({}).mount()
+```
+npm install custom-cursor
+yarn add custom-cursor
 ```
 
-### Default Cursor
+### Init
 
-```html
-<div id="custom-cursor" class="custom-cursor" style="position: absolute; pointer-events: none;"></div>
+```js
+import Cursor from "custom-cursor";
+
+new Cursor({});
 ```
 
 ## Options
 
-There's 3 options available and they are all optional:
-
-- secondCursor
-- hoverTargets
-- browserCursor
-
-```js
-const customCursor = new Cursor({
-  secondCursor: true, // default = false
-  hoverTargets: ['.link-button', '#hero-text', 'p'], // default = null
-  browserCursor: false, // default = true
-})
-```
-
-### secondCursor
-
-This adds a second cursor element to the page with the following markup:
-
-```html
-<div id="custom-cursor-second" class="custom-cursor-second" style="position: absolute; pointer-events: none;"></div>
-```
-
-### hoverTargets
-
-Pass an array of elements that you want to apply a custom hover effect to the cursor when these elements are on hover.
-
-The name of the element in the array will be given as a class name to the body element of the page. Therefore:
+There are two options you can pass to `new Cursor({})`.
 
 ```js
 new Cursor({
-  hoverTargets: ['.link-button', '#hero-text', 'p'],
-})
+  count: 5,
+  targets: ["a", ".title", "#header"],
+});
 ```
 
-Will result in:
+### Count
+
+| Default | Type   |
+| ------- | ------ |
+| 1       | Number |
+
+This allows you to set how many cursors are created.
+
+If we use the example of `5`, it will result in the following HTML.
 
 ```html
-<body class="custom-cursor-hover--link-button"></body>
-<body class="custom-cursor-hover--hero-text"></body>
-<body class="custom-cursor-hover--p"></body>
+<div data-cursor="0" style="position: absolute; pointer-events: none;"></div>
+<div data-cursor="1" style="position: absolute; pointer-events: none;"></div>
+<div data-cursor="2" style="position: absolute; pointer-events: none;"></div>
+<div data-cursor="3" style="position: absolute; pointer-events: none;"></div>
+<div data-cursor="4" style="position: absolute; pointer-events: none;"></div>
 ```
 
-The class is applied to the body so that in CSS you can easily add different styles per hover, like so:
+You can then write the following CSS.
 
 ```css
-.custom-cursor-hover--link-button .custom-cursor {
-  background: red;
+/* Global */
+
+[data-cursor] {
+  width: 20px;
+  height: 20px;
 }
 
-.custom-cursor-hover--hero-text .custom-cursor-second {
-  background: green;
+/* Individual */
+
+[data-cursor="0"] {
+  background: #00F;
 }
 
-.custom-cursor-hover--hero-text .custom-cursor {
-  background: green;
+[data-cursor="1"] {
+  background: #EEE;
 }
+
+...
 ```
 
-Currently it strips out `!`, `.` and `#` from the hover names.
+### Targets
 
-If there are more characters in need of being removed, then please create either an issue or a pull request.
+| Default | Type           |
+| ------- | -------------- |
+| []      | Array <String> |
 
-### browserCursor
+This allows you to set the HTML elements that will trigger a hover effect for the custom cursor.
 
-Pass in `false` if you don't want the default browser cursor to appear.
+If we use the example of `["a", ".title", "#header"]`, it will do the following.
 
-This will handle most but not all cases, such as when you hover over a link. If you want to completely remove the cursor then I'd recommend doing so with CSS.
+1. Find every element on the page that matches the value
+2. Watch for `mouseover` and `mouseleave` events on those elements
+3. If `mouseover` is triggered it appends `custom-cursor-hover--<name>` to the body element
 
-## Contributing
-
-This is always welcomed so please do get involved!
+`<name>` will be the value in the array, therefore if the `.title` element was on `mouseover` it would add `custom-cursor-hover--title`.

@@ -75,8 +75,3 @@ export default class Cursor {
     this.body.classList.toggle(`${this.name}-hover--${name}`);
   }
 }
-
-new Cursor({
-  count: 3,
-  targets: ["a", "h1"],
-});

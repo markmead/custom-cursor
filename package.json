@@ -1,6 +1,6 @@
 {
   "name": "custom-cursor",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Create your own custom cursor with minimal JavaScript",
   "main": "dist/index.js",
   "scripts": {
@@ -10,12 +10,8 @@
   "author": "Mark Mead",
   "license": "MIT",
   "keywords": [
-    "browser cursor",
-    "custom cursor",
-    "customise cursor",
-    "customisable cursor",
-    "javascript cursor",
-    "typescript cursor"
+    "cursor",
+    "custom cursor"
   ],
   "repository": {
     "type": "git",

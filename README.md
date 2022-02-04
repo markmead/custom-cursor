@@ -88,6 +88,6 @@ If we use the example of `["a", ".title", "#header"]`, it will do the following.
 
 1. Find every element on the page that matches the value
 2. Watch for `mouseover` and `mouseleave` events on those elements
-3. If `mouseover` is triggered it appends `custom-cursor-hover--<name>` to the body element
+3. If `mouseover` is triggered it appends `cursor-hover--<name>` to the body element
 
-`<name>` will be the value in the array, therefore if the `.title` element was on `mouseover` it would add `custom-cursor-hover--title`.
+`<name>` will be the value in the array, therefore if the `.title` element was on `mouseover` it would add `cursor-hover--title`.

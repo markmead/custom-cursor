@@ -7,7 +7,6 @@ export default class Cursor {
   count: number;
   targets: string[] | boolean;
 
-  name = "custom-cursor";
   style = "position: fixed; pointer-events: none;";
   body = document.querySelector("body") as HTMLBodyElement;
 
@@ -51,8 +50,7 @@ export default class Cursor {
   }
 
   private position(cursor: HTMLDivElement, x: number, y: number): void {
-    cursor.style.left = `${x - cursor.offsetWidth / 2}px`;
-    cursor.style.top = `${y - cursor.offsetHeight / 2}px`;
+    cursor.style.transform = `translate3d(calc(${x}px - 50%), calc(${y}px - 50%), 0)`;
   }
 
   private status(): void {
@@ -72,6 +70,6 @@ export default class Cursor {
   private hover(hoverTarget: string): void {
     const name = hoverTarget.replace(/[.#!]/g, "");
 
-    this.body.classList.toggle(`${this.name}-hover--${name}`);
+    this.body.classList.toggle(`cursor-hover--${name}`);
   }
 }

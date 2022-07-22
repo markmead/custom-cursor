@@ -1,34 +1,23 @@
 {
   "name": "custom-cursor",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Create your own custom cursor with minimal JavaScript",
-  "main": "dist/index.js",
-  "scripts": {
-    "build": "babel src --out-file dist/index.js --extensions '.ts'",
-    "lint": "tsc && eslint . --ext .ts"
-  },
-  "author": "Mark Mead",
-  "license": "MIT",
   "keywords": [
     "cursor",
     "custom cursor"
   ],
+  "author": "Mark Mead",
+  "license": "MIT",
+  "main": "dist/cursor.cjs.js",
+  "module": "dist/cursor.esm.js",
+  "scripts": {
+    "build": "node scripts/build.js"
+  },
+  "devDependencies": {
+    "esbuild": "^0.12.22"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/markmead/custom-cursor.git"
-  },
-  "devDependencies": {
-    "@babel/cli": "^7.12.1",
-    "@babel/core": "^7.12.10",
-    "@babel/plugin-proposal-class-properties": "^7.12.1",
-    "@babel/plugin-proposal-object-rest-spread": "^7.12.1",
-    "@babel/plugin-transform-classes": "^7.12.1",
-    "@babel/preset-env": "^7.12.11",
-    "@babel/preset-typescript": "^7.12.7",
-    "@typescript-eslint/eslint-plugin": "^4.13.0",
-    "@typescript-eslint/parser": "^4.13.0",
-    "babel-preset-minify": "^0.5.1",
-    "eslint": "^7.17.0",
-    "typescript": "^4.1.3"
   }
 }

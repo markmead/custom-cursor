@@ -7,7 +7,7 @@ export default class Cursor {
   count: number
   targets: string[] | boolean
 
-  style = 'position: fixed; pointer-events: none;'
+  style = 'position: fixed; pointer-events: none; top: 0; left: 0;'
   body = document.querySelector('body') as HTMLBodyElement
 
   constructor(private data: CursorInterface) {

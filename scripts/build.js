@@ -12,13 +12,6 @@ build({
   mainFields: ['main', 'module'],
 })
 
-build({
-  entryPoints: [`builds/module.js`],
-  outfile: `dist/cursor.cjs.js`,
-  target: ['node10.4'],
-  platform: 'node',
-})
-
 function build(options) {
   options.define || (options.define = {})
 

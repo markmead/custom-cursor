@@ -1,3 +1,3 @@
-import Cursor from '../src/index.js'
+import Cursor from '../src/index.ts'
 
 export default Cursor

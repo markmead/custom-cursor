@@ -1,6 +1,6 @@
 {
   "name": "custom-cursor",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "description": "Create your own custom cursor with minimal JavaScript",
   "keywords": [
     "cursor",
@@ -8,8 +8,8 @@
   ],
   "author": "Mark Mead",
   "license": "MIT",
-  "main": "dist/cursor.cjs.js",
   "module": "dist/cursor.esm.js",
+  "unpkg": "dist/cursor.min.js",
   "scripts": {
     "build": "node scripts/build.js"
   },

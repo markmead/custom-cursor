@@ -1,10 +1,12 @@
 {
   "name": "custom-cursor",
-  "version": "2.2.2",
-  "description": "Create your own custom cursor with minimal JavaScript",
+  "version": "2.2.3",
+  "description": "Create your own custom cursor with minimal JavaScript 👆",
   "keywords": [
-    "cursor",
-    "custom cursor"
+    "Cursor",
+    "Custom Cursor",
+    "JavaScript Cursor",
+    "CSS Cursor"
   ],
   "author": "Mark Mead",
   "license": "MIT",
@@ -14,10 +16,6 @@
     "build": "node scripts/build.js"
   },
   "devDependencies": {
-    "esbuild": "^0.12.22"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/markmead/custom-cursor.git"
+    "esbuild": "^0.16.2"
   }
 }

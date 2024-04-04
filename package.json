@@ -1,6 +1,6 @@
 {
   "name": "custom-cursor",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "description": "Create your own custom cursor with minimal JavaScript 👆",
   "keywords": [
     "Cursor",
@@ -16,6 +16,6 @@
     "build": "node scripts/build.js"
   },
   "devDependencies": {
-    "esbuild": "^0.16.2"
+    "esbuild": "^0.20.2"
   }
 }

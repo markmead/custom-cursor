@@ -28,8 +28,6 @@ want to replace the default cursor with something more engaging.
 
 ## CDN
 
-## CDN
-
 For this package to work with a CDN, you'll need to access the `Cursor` class
 from the `window` object.
 

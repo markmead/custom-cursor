@@ -1,35 +1,39 @@
 # Custom Cursor 👆
 
+![](https://img.shields.io/bundlephobia/min/custom-cursor)
+![](https://img.shields.io/npm/v/custom-cursor)
+![](https://img.shields.io/npm/dt/custom-cursor)
+![](https://img.shields.io/github/license/markmead/custom-cursor)
+
 This is a tiny JavaScript package that creates custom cursor for you with
 minimal JavaScript and allows you to write hover effects for the cursor(s) in
 CSS.
 
-## Using with a Package Manager
+## Features
 
-If you're working with a package manager then you can install and run this
-package with the following code.
+- 🪶 Lightweight (< 1kb minified)
+- 🎨 Fully customizable with CSS
+- ⚡ Simple API with minimal configuration
+- 🔄 Multiple cursor support for follow-along effects
+- 🎯 Target specific elements for custom hover states
+- 📱 Works with mouse and touch devices
 
-```sh
-yarn add -D custom-cursor
+Perfect for creative websites, portfolios, and interactive experiences where you
+want to replace the default cursor with something more engaging.
 
-npm install -D custom-cursor
-```
+## Install
 
-```js
-import Cursor from 'custom-cursor'
+## CDN
 
-new Cursor({})
-```
+## CDN
 
-## Using with a CDN
-
-For this package to work with a CDN you have to call the `Cursor` class on the
-`window` object.
+For this package to work with a CDN, you'll need to access the `Cursor` class
+from the `window` object.
 
 ```html
 <script
   defer
-  src="https://unpkg.com/custom-cursor@latest/dist/cursor.min.js"
+  src="https://unpkg.com/custom-cursor@latest/dist/cdn.min.js"
 ></script>
 
 <script>
@@ -39,26 +43,57 @@ For this package to work with a CDN you have to call the `Cursor` class on the
 </script>
 ```
 
-🚀 You can still use the `count` and `targets` options when using the CDN.
+### Configuration with CDN
 
-## Options
-
-There are two options that you can pass to `new Cursor({})`, but they are both
-optional.
+When using the CDN version, you still have full access to all configuration
+options:
 
 ```js
-new Cursor({
-  count: 5,
-  targets: ['a', '.title', '#header'],
+document.addEventListener('DOMContentLoaded', () => {
+  new window['Cursor']({
+    count: 3, // Creates multiple cursor elements
+    targets: ['a', 'button', '.interactive'], // Elements that trigger hover states
+  })
 })
 ```
 
+These options work exactly the same way as in the package version, giving you
+complete control over your custom cursor behavior.
+
+## Package
+
+```shell
+yarn add -D custom-cursor
+npm install -D custom-cursor
+```
+
+```js
+import Cursor from 'custom-cursor'
+
+new Cursor({})
+```
+
+## Options
+
+The `Cursor` constructor accepts an optional configuration object with two
+parameters:
+
+```js
+new Cursor({
+  count: 5, // Creates multiple cursor elements
+  targets: ['a', '.title', '#header'], // Elements that trigger hover states
+})
+```
+
+Both parameters are optional and can be customized to fit your specific
+requirements.
+
 ### Count
 
-This allows you to control how many cursor are created, perfect for follow along
-cursor effects.
+This parameter lets you specify the number of cursor elements to create, which
+is ideal for creating trailing cursor effects.
 
-If we use the example of `5` then it will result in the following HTML.
+When you set `count: 5`, the package generates the following HTML structure:
 
 ```html
 <div data-cursor="0" style="..."></div>
@@ -68,7 +103,8 @@ If we use the example of `5` then it will result in the following HTML.
 <div data-cursor="4" style="..."></div>
 ```
 
-We can use the `[data-cursor]` attributes to write CSS.
+Each cursor element receives a `data-cursor` attribute with its index number,
+allowing you to style each cursor element individually with CSS:
 
 ```css
 [data-cursor] {
@@ -85,37 +121,44 @@ We can use the `[data-cursor]` attributes to write CSS.
 }
 ```
 
+This approach gives you complete control over the appearance of each cursor in
+the sequence, creating trailing effects, size variations, or color gradients.
+
 ### Targets
 
-This allows you to control which HTML elements on the page you want the cursor
-to have a hover effect for.
+The `targets` parameter lets you define specific HTML elements that will trigger
+cursor hover effects.
 
-If we use the example of `['a', '.title', '#header']`, it will do the following.
+For example, with `targets: ['a', '.title', '#header']`, the package will:
 
-1. Find every `<a>`, `<... class="title">` and `<... id="header">` element on
-   the page
-2. Listen for `mouseover` and `mouseleave` events on those elements
-3. When `mouseover` is triggered append `cursor-hover--<target>` to the body
-   element
+1. Locate all `<a>` elements, elements with the class `.title`, and the element
+   with ID `#header`
+2. Add event listeners for `mouseover` and `mouseleave` on these elements
+3. When the mouse hovers over a target, add a class of `cursor-hover--<target>`
+   to the document body
 
-`<target>` will be the identifier give in the targets array, therefore if the
-`.title` was triggered it would add `cursor-hover--title`.
+The `<target>` portion of the class name corresponds to the identifier in your
+targets array. For instance, hovering over `.title` elements will add
+`cursor-hover--title` to the body.
 
-#### Styling Hover Effects
+#### Creating Hover Styles
 
-Taking the previous example, we could use the following CSS to create hover
-effects for the cursor(s).
+You can style cursor hover states using the added class names. For example:
 
 ```css
+/* Style all cursors when hovering over links */
 .cursor-hover--a [data-cursor] {
 }
 
+/* Style all cursors when hovering over elements with .title class */
 .cursor-hover--title [data-cursor] {
 }
 
+/* Style all cursors when hovering over element with #header ID */
 .cursor-hover--header [data-cursor] {
 }
 
+/* Style specific cursors by index during hover */
 .cursor-hover--header [data-cursor='0'] {
 }
 
@@ -123,9 +166,5 @@ effects for the cursor(s).
 }
 ```
 
-## Stats
-
-![](https://img.shields.io/bundlephobia/min/custom-cursor)
-![](https://img.shields.io/npm/v/custom-cursor)
-![](https://img.shields.io/npm/dt/custom-cursor)
-![](https://img.shields.io/github/license/markmead/custom-cursor)
+This approach gives you fine-grained control over cursor appearance during
+different hover interactions.

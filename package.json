@@ -1,17 +1,16 @@
 {
   "name": "custom-cursor",
-  "version": "2.2.4",
-  "description": "Create your own custom cursor with minimal JavaScript 👆",
+  "version": "2.3.0",
+  "description": "Create your own custom cursor with minimal JavaScript. Easy to implement, customizable, and lightweight solution for interactive web experiences 👆",
   "keywords": [
-    "Cursor",
-    "Custom Cursor",
-    "JavaScript Cursor",
-    "CSS Cursor"
+    "cursor",
+    "custom-cursor",
+    "interactive"
   ],
   "author": "Mark Mead",
   "license": "MIT",
-  "module": "dist/cursor.esm.js",
-  "unpkg": "dist/cursor.min.js",
+  "module": "dist/esm.min.js",
+  "unpkg": "dist/cdn.min.js",
   "scripts": {
     "build": "node scripts/build.js"
   },

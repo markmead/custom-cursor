@@ -1,5 +1,8 @@
 # Custom Cursor 👆
 
+> [!IMPORTANT] 
+> This plugin is no longer maintained or supported.
+
 ![](https://img.shields.io/bundlephobia/min/custom-cursor)
 ![](https://img.shields.io/npm/v/custom-cursor)
 ![](https://img.shields.io/npm/dt/custom-cursor)

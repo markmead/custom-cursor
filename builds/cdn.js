@@ -1,3 +1,3 @@
-import Cursor from '../src/index.ts'
+import Cursor from '../src/index.js'
 
 window.Cursor = Cursor

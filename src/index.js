@@ -14,6 +14,7 @@ export default function createCursor(configOptions = {}) {
 
     for (const [indexPosition] of cursorElements.entries()) {
       const cursorElement = document.createElement('div')
+
       createCursorElement(cursorElement, indexPosition)
     }
   }

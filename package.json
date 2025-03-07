@@ -1,6 +1,6 @@
 {
   "name": "custom-cursor",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "Create your own custom cursor with minimal JavaScript. Easy to implement, customizable, and lightweight solution for interactive web experiences 👆",
   "keywords": [
     "cursor",
